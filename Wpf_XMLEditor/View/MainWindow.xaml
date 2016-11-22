@@ -1,0 +1,135 @@
+﻿<Window x:Class="Wpf_XMLEditor.MainWindow" Name="MyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ViewModel="clr-namespace:Wpf_XMLEditor.ViewModel"
+        Title="XmlEditor" Height="400" Width="545">
+    <Grid Name="Form" Background="DarkGray" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Background="LightGray" FontWeight="Bold">
+            <MenuItem Header="Файл" Background="LightGray">
+                <MenuItem Header="Открыть" Command="{Binding OpenCommand}"/>
+                <MenuItem Header="Сохранить" Command="{Binding SaveCommand}"/>
+                <MenuItem Header="Сохранить как" Command="{Binding SaveAsCommand}"/>
+                <Separator/>
+                <MenuItem Header="Выход" Command="{Binding ExitCommand}"/>
+            </MenuItem>
+        </Menu>
+        <Button Command="{Binding OpenCommand}" Margin="505,0,0,300" Grid.Row="1" Width="25" Height="25" Background="DarkGray" BorderBrush="DarkGray" ToolTip="Add file" HorizontalAlignment="Left">
+            <Image Source="D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\Images\add-icon.png" HorizontalAlignment="Left" Width="21" Height="18" Margin="1,0,0,0"/>
+        </Button>
+
+        <TabControl HorizontalAlignment="Left" Background="White" Grid.Row="2" Margin="10,10,0,10" Width="497" Height="331" >
+
+            <TabControl.SelectedIndex>
+                <Binding Path="SelectedTab"/>
+            </TabControl.SelectedIndex>
+
+            <TabControl.ItemsSource>
+                <Binding Path="FilesList"/>
+            </TabControl.ItemsSource>
+
+            <TabControl.ItemTemplate>
+
+                <DataTemplate DataType="{x:Type ViewModel:File}">
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left" Margin="0,0,10,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="{Binding Path=FileName}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSave}" Value="False">
+                                            <Setter Property="Text" Value="{Binding StringFormat={}{0}*, Path=FileName}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                        <Button Content="X" DockPanel.Dock="Right" Height="15" Width="15" FontSize="8" FontWeight="Bold" BorderBrush="WhiteSmoke" Background="WhiteSmoke" Command="{Binding DataContext.CloseCommand,RelativeSource={RelativeSource AncestorType={x:Type Window}}}" ToolTip="Close Tab">
+                        </Button>
+                    </DockPanel>
+
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <TreeView x:Name="File">
+                        <TreeView.ItemsSource>
+                            <Binding Path="Threads"/>
+                        </TreeView.ItemsSource>
+
+                        <TreeView.Resources>
+                            <HierarchicalDataTemplate DataType="{x:Type ViewModel:Threads}" >
+                                <HierarchicalDataTemplate.ItemsSource>
+                                    <Binding Path="MethodsList"/>
+                                </HierarchicalDataTemplate.ItemsSource>
+                                <HierarchicalDataTemplate.ItemContainerStyle>
+                                    <Style TargetType="{x:Type TreeViewItem}">
+                                        <EventSetter Event="MouseDoubleClick" Handler="OnItemMouseDoubleClick" />
+                                    </Style>
+                                </HierarchicalDataTemplate.ItemContainerStyle>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="thread {0} (time: {1})">
+                                            <Binding Path="Id"/>
+                                            <Binding Path="Time"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </HierarchicalDataTemplate>
+
+                            <HierarchicalDataTemplate DataType="{x:Type ViewModel:Methods}">
+                                <HierarchicalDataTemplate.ItemsSource>
+                                    <Binding Path="MethodsList" />
+                                </HierarchicalDataTemplate.ItemsSource>
+                                <HierarchicalDataTemplate.ItemContainerStyle>
+                                    <Style TargetType="{x:Type TreeViewItem}">
+                                        <EventSetter Event="MouseDoubleClick" Handler="OnItemMouseDoubleClick" />
+                                    </Style>
+                                </HierarchicalDataTemplate.ItemContainerStyle>
+                                <TextBlock >
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} (params={1} package={2} time={3})">
+                                            <Binding Path="Name"/>
+                                            <Binding Path="ParamsCount"/>
+                                            <Binding Path="Package"/>
+                                            <Binding Path="Time"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </HierarchicalDataTemplate>
+                        </TreeView.Resources>
+                    </TreeView>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+
+        </TabControl>
+        <GroupBox x:Name="groupBox" Header="Редактирование" HorizontalAlignment="Left" Margin="535,76,0,0" Grid.Row="1" VerticalAlignment="Top" Height="182" Width="233" BorderBrush="Black">
+            <Grid HorizontalAlignment="Left" Height="264" Margin="10,10,-1,0" VerticalAlignment="Top" Width="212">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="29*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="28*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="91*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="Name" HorizontalAlignment="Left"></Label>
+                <TextBox Grid.Row="0" Text="{Binding Name, Mode=TwoWay}" HorizontalAlignment="Right" Width="100" Height="18" Margin="0,4,15,4"/>
+                <Label Grid.Column="0" Grid.Row="1" Content="Package" HorizontalAlignment="Left"></Label>
+                <TextBox Grid.Row="1" Text="{Binding Package, Mode=TwoWay}" HorizontalAlignment="Right" Width="100" Height="18" Margin="0,6,15,6" />
+                <Label Grid.Column="0" Grid.Row="2" Content="Params Count" HorizontalAlignment="Left"></Label>
+                <TextBox Grid.Row="2" Text="{Binding ParamsCount, Mode=TwoWay}" HorizontalAlignment="Right" Width="50" Height="18" Margin="0,6,65,5"/>
+                <Label Grid.Column="0" Grid.Row="3" Content="Time" HorizontalAlignment="Left"></Label>
+                <TextBox Grid.Row="3" Text="{Binding Time, Mode=TwoWay}" HorizontalAlignment="Right" Width="50" Height="18" Margin="0,6,65,6"/>
+                <Button Grid.Column="0" Grid.Row="4" Command="{Binding OkCommand}" Width="50" Height="20" HorizontalAlignment="Left" Margin="30,0,10,0">Ok</Button>
+                <Button Grid.Column="1" Grid.Row="4" Command="{Binding CancelCommand}" Width="50" Height="20" HorizontalAlignment="Right" Margin="30,0,30,0">Отмена</Button>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
