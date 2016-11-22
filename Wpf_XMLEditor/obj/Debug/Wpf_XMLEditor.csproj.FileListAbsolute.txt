@@ -1,0 +1,15 @@
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\bin\Debug\Wpf_XMLEditor.exe.config
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\bin\Debug\Wpf_XMLEditor.exe
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\bin\Debug\Wpf_XMLEditor.pdb
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\obj\Debug\Wpf_XMLEditor.csprojResolveAssemblyReference.cache
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\obj\Debug\App.g.cs
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\obj\Debug\Wpf_XMLEditor_MarkupCompile.cache
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\obj\Debug\Wpf_XMLEditor.g.resources
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\obj\Debug\Wpf_XMLEditor.Properties.Resources.resources
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\obj\Debug\Wpf_XMLEditor.csproj.GenerateResource.Cache
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\obj\Debug\Wpf_XMLEditor.exe
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\obj\Debug\Wpf_XMLEditor.pdb
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\obj\Debug\View\MainWindow.baml
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\obj\Debug\View\MainWindow.g.cs
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\СПП\3 лаба\Wpf_XMLEditor\Wpf_XMLEditor\obj\Debug\Wpf_XMLEditor_MarkupCompile.lref
