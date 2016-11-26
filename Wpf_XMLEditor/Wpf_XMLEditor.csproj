@@ -87,7 +87,7 @@
     </Compile>
     <Compile Include="ViewModel\File.cs" />
     <Compile Include="ViewModel\Methods.cs" />
-    <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\Command.cs" />
     <Compile Include="ViewModel\Tab.cs" />
     <Compile Include="ViewModel\Threads.cs" />
     <Compile Include="View\MainWindow.xaml.cs">

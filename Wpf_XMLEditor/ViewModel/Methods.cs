@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using Wpf_XMLEditor.Model;
-
 namespace Wpf_XMLEditor.ViewModel
 {
-    public class Methods : INotifyPropertyChanged
+    public class Methods : INotifyPropertyChanged , ITime
     {
         private readonly Method method;
         public ObservableCollection<Methods> MethodsList { get; }
+
 
         public object Parent { get; private set; }
 
@@ -29,6 +21,8 @@ namespace Wpf_XMLEditor.ViewModel
 
                 method.Name = value;
                 OnPropertyChanged("Name");
+                
+                
             }
         }
 
@@ -66,6 +60,19 @@ namespace Wpf_XMLEditor.ViewModel
                 if (method.Time == value)
                     return;
 
+                int difference = value - method.Time;
+
+                ITime parentTime = Parent as ITime;
+                if (parentTime != null)
+                {
+                    int newTime = parentTime.Time + difference;
+                    if (newTime < 0)
+                    {
+                        return;
+                    }
+                    parentTime.Time = (int)newTime;
+                }
+
                 method.Time = value;
                 OnPropertyChanged("Time");
             }
@@ -99,17 +106,5 @@ namespace Wpf_XMLEditor.ViewModel
             }
         }
 
-        private void OnItemMouseDoubleClick(object sender, MouseButtonEventArgs args)
-        {
-            if (sender is TreeViewItem)
-            {
-                if (!((TreeViewItem)sender).IsSelected)
-                {
-                    return;
-                }
-            }
-            MessageBox.Show(((TreeViewItem)sender).IsSelected.ToString());
-
-        }
     }
 }

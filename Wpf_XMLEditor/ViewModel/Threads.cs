@@ -10,7 +10,7 @@ using Wpf_XMLEditor.Model;
 
 namespace Wpf_XMLEditor.ViewModel
 {
-    public class Threads : INotifyPropertyChanged
+    public class Threads : INotifyPropertyChanged, ITime
     {
         private readonly Thread thread;
         public ObservableCollection<Methods> MethodsList { get; }

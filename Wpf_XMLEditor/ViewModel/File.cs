@@ -10,7 +10,6 @@ namespace Wpf_XMLEditor.ViewModel
     public class File : INotifyPropertyChanged
     {
         private readonly FileInformation file;
-        private object selectedValue;
         public ObservableCollection<Threads> Threads { get; }
 
 
@@ -47,15 +46,6 @@ namespace Wpf_XMLEditor.ViewModel
             }
         }
 
-        public object SelectedValue
-        {
-            get { return selectedValue; }
-            set
-            {
-                selectedValue = value;
-                OnPropertyChanged("SelectedValue");
-            }
-        }
 
         public void SaveAs(string path)
         {
@@ -88,16 +78,6 @@ namespace Wpf_XMLEditor.ViewModel
         {
             IsSave = false;
         }
-
-        private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            if (!(sender is TreeView))
-                return;
-
-            SelectedValue = e.NewValue;
-        }
-
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 

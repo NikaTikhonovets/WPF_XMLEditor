@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Xml;
 using Wpf_XMLEditor.Model;
 
@@ -15,19 +16,21 @@ namespace Wpf_XMLEditor.ViewModel
         private int selectedTab = -1;
         public File selectedFile;
 
-        public RelayCommand OpenCommand { get; }
-        public RelayCommand CloseCommand { get; }
-        public RelayCommand SaveCommand { get; }
-        public RelayCommand SaveAsCommand { get; }
-        public RelayCommand ExitCommand { get; }
+        public Command OpenCommand { get; }
+        public Command CloseCommand { get; }
+        public Command SaveCommand { get; }
+        public Command SaveAsCommand { get; }
+        public Command ExitCommand { get; }
+        public Command OkCommand { get; }
 
         public Tab()
         {
-            OpenCommand = new RelayCommand(Open_OnExecuted);
-            SaveCommand = new RelayCommand(Save_OnExecuted, Save_OnCanExecute);
-            SaveAsCommand = new RelayCommand(SaveAs_OnExecuted, SaveAs_OnCanExecute);
-            ExitCommand = new RelayCommand(Exit_OnExecuted);
-            CloseCommand = new RelayCommand(Close_OnExecuted);
+            OpenCommand = new Command(Open_OnExecuted);
+            SaveCommand = new Command(Save_OnExecuted, Save_OnCanExecute);
+            SaveAsCommand = new Command(SaveAs_OnExecuted, SaveAs_OnCanExecute);
+            ExitCommand = new Command(Exit_OnExecuted);
+            CloseCommand = new Command(Close_OnExecuted);
+            OkCommand = new Command(OkCommand_OnExecute);
         }
 
         public int SelectedTab
@@ -78,14 +81,6 @@ namespace Wpf_XMLEditor.ViewModel
                 SelectedTab = -1;
         }
 
-        public void OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            if (SelectedFile == null)
-                return;
-
-            SelectedFile.SelectedValue =
-                e.NewValue as Methods;
-        }
 
         public bool CloseAllTab()
         {
@@ -210,6 +205,91 @@ namespace Wpf_XMLEditor.ViewModel
         }
 
 
+        private Methods method;
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (name == value)
+                    return;
+
+                name = value;
+                method.Name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+        private string package;
+        public string Package
+        {
+            get { return package; }
+            set
+            {
+                if (package == value)
+                    return;
+
+                package = value;
+                method.Package = value;
+                OnPropertyChanged("Package");
+            }
+        }
+
+        private int paramsCount;
+        public int ParamsCount
+        {
+            get { return paramsCount; }
+            set
+            {
+                if (paramsCount == value)
+                    return;
+
+                paramsCount = value;
+                method.ParamsCount = value;
+                OnPropertyChanged("ParamsCount");
+            }
+        }
+        private int time;
+        public int Time
+        {
+            get { return time; }
+            set
+            {
+                if (time == value)
+                    return;
+
+                time = value;
+                method.Time = value;
+                OnPropertyChanged("Time");
+            }
+        }
+
+
+
+        public void GetMethod(object sender)
+        {
+            TreeViewItem item = (TreeViewItem)sender;
+            Methods node = (Methods)item.DataContext;
+            method = node;
+            Name = method.Name;
+            Time = method.Time;
+            Package = method.Package;
+            ParamsCount = method.ParamsCount;
+
+        }
+
+        private void OkCommand_OnExecute(object sender)
+        {
+            method.Name = Name;
+            method.Package = Package;
+            method.ParamsCount = ParamsCount;
+            method.Time = Time;
+
+            OnPropertyChanged("Name");
+            OnPropertyChanged("Package");
+            OnPropertyChanged("ParamsCount");
+            OnPropertyChanged("Time");
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

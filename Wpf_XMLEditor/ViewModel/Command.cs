@@ -7,7 +7,12 @@ using System.Windows.Input;
 
 namespace Wpf_XMLEditor.ViewModel
 {
-    public class RelayCommand : ICommand
+    public interface ITime
+    {
+        int Time { get; set; }
+    }
+
+    public class Command : ICommand
     {
         private Action<object> execute;
         private Func<object, bool> canExecute;
@@ -18,7 +23,7 @@ namespace Wpf_XMLEditor.ViewModel
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        public Command(Action<object> execute, Func<object, bool> canExecute = null)
         {
             this.execute = execute;
             this.canExecute = canExecute;

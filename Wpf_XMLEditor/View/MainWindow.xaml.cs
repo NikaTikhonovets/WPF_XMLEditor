@@ -12,12 +12,15 @@ namespace Wpf_XMLEditor
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Tab tab;
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new Tab();
+            tab = new Tab();
+            DataContext = tab;
         }
-            private void OnItemMouseDoubleClick(object sender, MouseButtonEventArgs args)
+
+        public void OnItemMouseDoubleClick(object sender, MouseButtonEventArgs args)
         {
             if (sender is TreeViewItem)
             {
@@ -26,14 +29,25 @@ namespace Wpf_XMLEditor
                     return;
                 }
             }
+            tab.GetMethod(sender);
             DoubleAnimation formAnimation = new DoubleAnimation();
             formAnimation.From = MyWindow.ActualWidth;
             formAnimation.To = 800;
             formAnimation.Duration = TimeSpan.FromSeconds(1);
             this.BeginAnimation(Window.WidthProperty, formAnimation);
-            //   MessageBox.Show("kuku");
-
+            tabControl.IsEnabled = false;
+            add_button.IsEnabled = false;
         }
-    
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            DoubleAnimation formAnimation = new DoubleAnimation();
+            formAnimation.From = MyWindow.ActualWidth;
+            formAnimation.To = 545;
+            formAnimation.Duration = TimeSpan.FromSeconds(1);
+            this.BeginAnimation(Window.WidthProperty, formAnimation);
+            tabControl.IsEnabled = true;
+            add_button.IsEnabled = true;
+        }
     }
 }
