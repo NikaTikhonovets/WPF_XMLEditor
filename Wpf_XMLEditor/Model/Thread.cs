@@ -7,7 +7,7 @@ namespace Wpf_XMLEditor.Model
     public class Thread
     {
         public int Id { get; set; }
-        public int Time { get; set; }
+        public ulong Time { get; set; }
         public List<Method> Methods { get; }
 
 
@@ -16,10 +16,11 @@ namespace Wpf_XMLEditor.Model
             if (element.Name != "thread")
                 throw new XmlException();
 
-            int id, time;
+            int id;
+            ulong time;
 
             id = Convert.ToInt32(element.Attributes["id"].Value);
-            time = Convert.ToInt32(element.Attributes["time"].Value);
+            time = Convert.ToUInt64(element.Attributes["time"].Value);
 
             Thread currentThread = new Thread()
             {

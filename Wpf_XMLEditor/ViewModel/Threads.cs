@@ -28,7 +28,7 @@ namespace Wpf_XMLEditor.ViewModel
             }
         }
 
-        public int Time
+        public ulong Time
         {
             get { return thread.Time; }
             set

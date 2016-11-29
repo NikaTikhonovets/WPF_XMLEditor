@@ -142,6 +142,18 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\save_as-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\save-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\method-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\thread-icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

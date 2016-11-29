@@ -1,13 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Wpf_XMLEditor.Model;
+using Wpf_XMLEditor.ViewModel;
+
 namespace Wpf_XMLEditor.ViewModel
 {
     public class Methods : INotifyPropertyChanged , ITime
     {
         private readonly Method method;
         public ObservableCollection<Methods> MethodsList { get; }
-
 
         public object Parent { get; private set; }
 
@@ -21,8 +22,7 @@ namespace Wpf_XMLEditor.ViewModel
 
                 method.Name = value;
                 OnPropertyChanged("Name");
-                
-                
+               
             }
         }
 
@@ -39,7 +39,7 @@ namespace Wpf_XMLEditor.ViewModel
             }
         }
 
-        public int ParamsCount
+        public uint ParamsCount
         {
             get { return method.ParamsCount; }
             set
@@ -52,7 +52,7 @@ namespace Wpf_XMLEditor.ViewModel
             }
         }
 
-        public int Time
+        public ulong Time
         {
             get { return method.Time; }
             set
@@ -60,17 +60,17 @@ namespace Wpf_XMLEditor.ViewModel
                 if (method.Time == value)
                     return;
 
-                int difference = value - method.Time;
+                ulong difference = value - method.Time;
 
                 ITime parentTime = Parent as ITime;
                 if (parentTime != null)
                 {
-                    int newTime = parentTime.Time + difference;
+                    ulong newTime = parentTime.Time + difference;
                     if (newTime < 0)
                     {
                         return;
                     }
-                    parentTime.Time = (int)newTime;
+                    parentTime.Time = (ulong)newTime;
                 }
 
                 method.Time = value;

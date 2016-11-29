@@ -35,6 +35,7 @@ namespace Wpf_XMLEditor
             formAnimation.To = 800;
             formAnimation.Duration = TimeSpan.FromSeconds(1);
             this.BeginAnimation(Window.WidthProperty, formAnimation);
+            menu.IsEnabled = false;
             tabControl.IsEnabled = false;
             add_button.IsEnabled = false;
         }
@@ -46,8 +47,28 @@ namespace Wpf_XMLEditor
             formAnimation.To = 545;
             formAnimation.Duration = TimeSpan.FromSeconds(1);
             this.BeginAnimation(Window.WidthProperty, formAnimation);
+            menu.IsEnabled = true;
             tabControl.IsEnabled = true;
             add_button.IsEnabled = true;
         }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem tabItem = e.Source as TabItem;
+            if (tabItem != null)
+            {
+                TabControl tabControl = tabItem.Parent as TabControl;
+                if (tabControl.SelectedItem != tabItem)
+                    return;
+            }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var binding = ((TextBox)sender).GetBindingExpression(TextBox.TextProperty);
+            binding.UpdateSource();
+            Ok_button.IsEnabled = !binding.HasError;
+        }
+
     }
 }

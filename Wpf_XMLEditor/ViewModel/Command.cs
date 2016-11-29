@@ -9,7 +9,7 @@ namespace Wpf_XMLEditor.ViewModel
 {
     public interface ITime
     {
-        int Time { get; set; }
+        ulong Time { get; set; }
     }
 
     public class Command : ICommand

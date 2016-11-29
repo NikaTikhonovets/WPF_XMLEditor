@@ -11,8 +11,8 @@ namespace Wpf_XMLEditor.Model
     {
         public string Name { get; set; }
         public string Package { get; set; }
-        public int ParamsCount { get; set; }
-        public int Time { get; set; }
+        public uint ParamsCount { get; set; }
+        public ulong Time { get; set; }
         public object Parent { get; private set; }
         public List<Method> ChildMethods { get; }
 
@@ -28,12 +28,13 @@ namespace Wpf_XMLEditor.Model
                 throw new XmlException();
 
             string name, package;
-            int paramsCount, time;
+            uint paramsCount;
+            ulong time;
 
             name = element.Attributes["name"].Value;
             package = element.Attributes["package"].Value;
-            paramsCount = Convert.ToInt32(element.Attributes["params"].Value);
-            time = Convert.ToInt32(element.Attributes["time"].Value);
+            paramsCount = Convert.ToUInt32(element.Attributes["params"].Value);
+            time = Convert.ToUInt64(element.Attributes["time"].Value);
 
             Method currentMethod = new Method()
             {

@@ -15,6 +15,7 @@ namespace Wpf_XMLEditor.ViewModel
         public ObservableCollection<File> FilesList { get; } = new ObservableCollection<File>();
         private int selectedTab = -1;
         public File selectedFile;
+ 
 
         public Command OpenCommand { get; }
         public Command CloseCommand { get; }
@@ -29,7 +30,7 @@ namespace Wpf_XMLEditor.ViewModel
             SaveCommand = new Command(Save_OnExecuted, Save_OnCanExecute);
             SaveAsCommand = new Command(SaveAs_OnExecuted, SaveAs_OnCanExecute);
             ExitCommand = new Command(Exit_OnExecuted);
-            CloseCommand = new Command(Close_OnExecuted);
+            CloseCommand = new Command(Close_OnExecuted, Close_OnCanExecute);
             OkCommand = new Command(OkCommand_OnExecute);
         }
 
@@ -131,6 +132,11 @@ namespace Wpf_XMLEditor.ViewModel
                 CloseTab();
         }
 
+        private bool Close_OnCanExecute(object sender)
+        {
+            return (FilesList.Count > 0);
+        }
+
         public static bool CanCloseFile(File file)
         {
             if (file.IsSave)
@@ -206,6 +212,7 @@ namespace Wpf_XMLEditor.ViewModel
 
 
         private Methods method;
+
         private string name;
         public string Name
         {
@@ -218,8 +225,10 @@ namespace Wpf_XMLEditor.ViewModel
                 name = value;
                 method.Name = value;
                 OnPropertyChanged("Name");
+                
             }
         }
+
         private string package;
         public string Package
         {
@@ -235,8 +244,8 @@ namespace Wpf_XMLEditor.ViewModel
             }
         }
 
-        private int paramsCount;
-        public int ParamsCount
+        private uint paramsCount;
+        public uint ParamsCount
         {
             get { return paramsCount; }
             set
@@ -249,8 +258,8 @@ namespace Wpf_XMLEditor.ViewModel
                 OnPropertyChanged("ParamsCount");
             }
         }
-        private int time;
-        public int Time
+        private ulong time;
+        public ulong Time
         {
             get { return time; }
             set
@@ -278,12 +287,10 @@ namespace Wpf_XMLEditor.ViewModel
 
         }
 
+
         private void OkCommand_OnExecute(object sender)
         {
-            method.Name = Name;
-            method.Package = Package;
-            method.ParamsCount = ParamsCount;
-            method.Time = Time;
+            SelectedFile.IsSave = false;
 
             OnPropertyChanged("Name");
             OnPropertyChanged("Package");

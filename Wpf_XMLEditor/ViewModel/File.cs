@@ -9,7 +9,7 @@ namespace Wpf_XMLEditor.ViewModel
 {
     public class File : INotifyPropertyChanged
     {
-        private readonly FileInformation file;
+        public readonly FileInformation file;
         public ObservableCollection<Threads> Threads { get; }
 
 
@@ -74,10 +74,6 @@ namespace Wpf_XMLEditor.ViewModel
 
         }
 
-        public void ChangeFile()
-        {
-            IsSave = false;
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
